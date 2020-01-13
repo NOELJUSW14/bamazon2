@@ -95,19 +95,16 @@ function purchase() {
 
                 console.log("Order placed successfully!");
                 afterConnection();
+              } else {
+                // bid wasn't high enough, so apologize and start over
+                console.log("We dont have enought in stock!");
+                afterConnection();
+
               }
-            
-          );
 
-      }
-        else {
-          // bid wasn't high enough, so apologize and start over
-          console.log("We dont have enought in stock!");
-          afterConnection();
+            }
+          })
+      })
+  })
+}
 
-        }
-          
-        }
-      
-     
-  })})}
