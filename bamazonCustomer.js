@@ -13,33 +13,42 @@ var connection = mysql.createConnection({
   // Your password
   password: "root",
 
-  // Your password
+  // Your DB
   database: "bamazon_db"
 
 });
 // Running this application will first display all of the items available for sale.
 connection.connect(function (err) {
-  if (err) throw err;
-  console.log(
-    "You are connected as id " + connection.threadId + "\n" +
-    "Welcome to Energy Unlimited!\n"
-  );
-
-  afterConnection()
+  if (err) {
+    console.log("Cannot connect!")
+  } else {
+    console.log(
+      "You are connected as id " + connection.threadId + "\n" +
+      "Welcome to Energy Unlimited!\n"
+    );
+    afterConnection()
+    
+  }
+  
+  
+  
 });
 function afterConnection() {
   //Query database to display items in store
   var query = connection.query("SELECT * FROM products", function (err, res) {
-    if (err) throw err;
-
-    for (var i = 0; i < res.length; i++) {
-      console.log(
-        "\n",
-        "ID:" + res[i].item_id,
-        "\nName:" + res[i].product_name,
-        "\nPrice:" + "$" + res[i].price,
-        "\nQTY Available:" + res[i].stock_quantity)
+    if (err) {
+      console.log(err);
+    } else {
+      for (var i = 0; i < res.length; i++) {
+        console.log(
+          "\n",
+          "ID:" + res[i].item_id,
+          "\nName:" + res[i].product_name,
+          "\nPrice:" + "$" + res[i].price,
+          "\nQTY Available:" + res[i].stock_quantity)
+      }
     }
+
 
   })
   console.log(query.sql)
@@ -48,7 +57,10 @@ function afterConnection() {
 function purchase() {
 
   connection.query("SELECT * FROM products", function (err, res) {
-    if (err) throw err;
+    if (err){
+      console.log(err) 
+      return
+    };
     inquirer
       .prompt([
         {
