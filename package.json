@@ -10,6 +10,7 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
+    "cli-table3": "^0.5.1",
     "inquirer": "^7.0.1",
     "mysql": "^2.17.1"
   }
